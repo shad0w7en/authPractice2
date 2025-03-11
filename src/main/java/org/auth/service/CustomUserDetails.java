@@ -14,9 +14,9 @@ import java.util.Set;
 public class CustomUserDetails extends UserInfo implements UserDetails {
 
 
-    private String username;
+    private final String username;
 
-    private String password;
+    private final String password;
 
     Collection<? extends GrantedAuthority> authorities;
 
