@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -18,6 +19,8 @@ import java.util.function.Function;
 public class JwtService {
 
     public static final String SECRET = "6f488807d491c72920b8536bf63d2f5fec3e65b8c998cb147bd7ecb9cd579745";
+
+
 
 
     public Boolean validateToken(String token , UserDetails userDetails){
@@ -67,7 +70,12 @@ public class JwtService {
     }
 
 
-    public String createToken(Map<String ,Claims> claims , String username){
+    public String generateToken(String username){
+        Map<String, Object> claims = new HashMap<>();
+        return createToken(claims, username);
+    }
+
+    public String createToken(Map<String ,Object> claims , String username){
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(username)

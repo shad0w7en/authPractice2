@@ -1,5 +1,8 @@
 package org.auth.service;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.auth.entity.UserInfo;
 import org.auth.model.UserInfoDto;
 import org.auth.repository.UserRepository;
@@ -14,6 +17,10 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
