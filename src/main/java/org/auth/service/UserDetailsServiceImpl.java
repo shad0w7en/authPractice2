@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.auth.entity.UserInfo;
+import org.auth.eventProducer.UserInfoProducer;
 import org.auth.model.UserInfoDto;
 import org.auth.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private UserInfoProducer userInfoProducer;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserInfo userInfo = userRepository.findByUsername(username);
@@ -52,12 +56,19 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             return false;
         }
         String userId = UUID.randomUUID().toString();
+
+
+
         userRepository.save(UserInfo.builder()
                         .password(userInfoDto.getPassword())
                         .userId(userId)
                         .username(userInfoDto.getUsername())
                         .roles(new HashSet<>())
                 .build());
+
+        userInfoProducer.sendEventToKafka(userInfoDto);
+
+
         return true;
     }
 }
