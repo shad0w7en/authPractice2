@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.UUID;
 
 
@@ -35,6 +34,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private UserInfoProducer userInfoProducer;
+
+    @Autowired
+    public UserDetailsServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

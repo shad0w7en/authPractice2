@@ -39,5 +39,9 @@ public class UserInfoSerializer implements Serializer<UserInfoDto> {
         return serialize(topic, data);
     }
 
+    @Override
+    public void close() {
+        // Nothing to close
+    }
 
 }
